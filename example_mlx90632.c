@@ -9,7 +9,7 @@
  */
 #include <rtthread.h>
 #include <rtdevice.h>
-#include "sensor.h"
+
 #include "sensor_melexis_mlx90632.h"
 
 #define MLX90632_ADDR (0x3A) // gnd ; 0x3B vcc

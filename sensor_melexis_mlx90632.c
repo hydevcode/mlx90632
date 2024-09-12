@@ -21,7 +21,7 @@
 
 static struct mlx90632_device mlx90632_dev;
 
-static int8_t rt_i2c_read_reg(mlx90632_device_t dev, int16_t reg, uint8_t *data, uint16_t len)
+static rt_err_t rt_i2c_read_reg(mlx90632_device_t dev, int16_t reg, uint8_t *data, uint16_t len)
 {
     rt_uint8_t tmp[2];
     struct rt_i2c_msg msgs[2];
@@ -44,7 +44,7 @@ static int8_t rt_i2c_read_reg(mlx90632_device_t dev, int16_t reg, uint8_t *data,
 
     return RT_EOK;
 }
-static int8_t rt_i2c_write_reg(mlx90632_device_t dev, int16_t reg, uint8_t *reg_data, uint16_t length)
+static rt_err_t rt_i2c_write_reg(mlx90632_device_t dev, int16_t reg, uint8_t *reg_data, uint16_t length)
 {
 
     /* Implement the I2C write routine according to the target machine. */
@@ -71,7 +71,7 @@ static int8_t rt_i2c_write_reg(mlx90632_device_t dev, int16_t reg, uint8_t *reg_
     return RT_EOK;
 }
 /* Implementation of I2C read for 16-bit values */
-int8_t mlx90632_i2c_read(int16_t register_address, uint16_t *value)
+rt_err_t mlx90632_i2c_read(int16_t register_address, uint16_t *value)
 {
     uint8_t data[2];
     int8_t ret = RT_EOK;
@@ -82,7 +82,7 @@ int8_t mlx90632_i2c_read(int16_t register_address, uint16_t *value)
 }
 
 /* Implementation of I2C read for 32-bit values */
-int8_t mlx90632_i2c_read32(int16_t register_address, uint32_t *value)
+rt_err_t mlx90632_i2c_read32(int16_t register_address, uint32_t *value)
 {
     uint8_t data[4];
     int8_t ret = RT_EOK;
@@ -153,7 +153,7 @@ void usleep(int min_range, int max_range)
         ;
 }
 
-static rt_size_t mlx90632_polling_get_data(rt_sensor_t sensor, struct rt_sensor_data *data)
+static RT_SIZE_TYPE mlx90632_polling_get_data(rt_sensor_t sensor, struct rt_sensor_data *data)
 {
 
     rt_int16_t ambient_new_raw;
@@ -176,7 +176,7 @@ static rt_size_t mlx90632_polling_get_data(rt_sensor_t sensor, struct rt_sensor_
     return 1;
 }
 
-static rt_size_t mlx90632_fetch_data(struct rt_sensor_device *sensor, void *buf, rt_size_t len)
+static RT_SIZE_TYPE mlx90632_fetch_data(struct rt_sensor_device *sensor, void *buf, rt_size_t len)
 {
     RT_ASSERT(buf);
 
@@ -198,7 +198,7 @@ static struct rt_sensor_ops sensor_ops =
         mlx90632_fetch_data,
         mlx90632_control};
 
-static int _mlx90632_init(const char *bus_name, mlx90632_device_t dev)
+static rt_err_t _mlx90632_init(const char *bus_name, mlx90632_device_t dev)
 {
     rt_err_t ret = RT_EOK;
     dev->bus = (struct rt_i2c_bus_device *)rt_device_find(bus_name);
@@ -235,13 +235,13 @@ static int _mlx90632_init(const char *bus_name, mlx90632_device_t dev)
     return RT_EOK;
 }
 
-int rt_hw_mlx90632_init(const char *name, struct rt_sensor_config *cfg)
+rt_err_t rt_hw_mlx90632_init(const char *name, struct rt_sensor_config *cfg)
 {
     rt_err_t ret = RT_EOK;
     rt_memset(&mlx90632_dev, 0, sizeof(struct mlx90632_device));
     if (cfg->intf.user_data)
     {
-        mlx90632_dev.addr = (rt_uint8_t)(cfg->intf.user_data);
+        mlx90632_dev.addr = (rt_uint32_t)(cfg->intf.user_data);
     }
     else
     {

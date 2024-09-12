@@ -14,7 +14,16 @@
 #include "board.h"
 #include "rtdevice.h"
 #include "mlx90632.h"
-#include <sensor.h>
+
+#include <rtdevice.h>
+
+#if defined(RT_VERSION_CHECK)
+    #if (RTTHREAD_VERSION >= RT_VERSION_CHECK(5, 0, 2))
+        #define RT_SIZE_TYPE   rt_ssize_t
+    #else
+        #define RT_SIZE_TYPE   rt_size_t
+    #endif
+#endif
 
 struct mlx90632_device
 {
@@ -44,7 +53,7 @@ struct mlx90632_device
 
 typedef struct mlx90632_device * mlx90632_device_t;
 
-int rt_hw_mlx90632_init(const char *name, struct rt_sensor_config *cfg);
+rt_err_t rt_hw_mlx90632_init(const char *name, struct rt_sensor_config *cfg);
 
 #endif /* #define __SENSOR_MELEXIS_MLX90632__H */
 
