@@ -7,11 +7,11 @@
  * Date           Author       Notes
  * 2020-07-22     xph    first version
  */
-#include "sensor_melexis_mlx90632.h"
+#include "melexis_mlx90632_sensor_v1.h"
 
 #define DBG_ENABLE
 #define DBG_LEVEL DBG_LOG
-#define DBG_SECTION_NAME "sensor.mlx90632"
+#define DBG_SECTION_NAME "mlx90632.sensor.v1"
 #define DBG_COLOR
 #include <rtdbg.h>
 

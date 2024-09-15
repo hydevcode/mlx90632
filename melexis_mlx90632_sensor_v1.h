@@ -7,8 +7,8 @@
  * Date           Author       Notes
  * 2020-07-22     xph    first version
  */
-#ifndef __SENSOR_MELEXIS_MLX90632__H
-#define __SENSOR_MELEXIS_MLX90632__H
+#ifndef __MELEXIS_MLX90632_SENSOR_V1_H__
+#define __MELEXIS_MLX90632_SENSOR_V1_H__
 
 #include "rtthread.h"
 #include "board.h"
@@ -55,7 +55,7 @@ typedef struct mlx90632_device * mlx90632_device_t;
 
 rt_err_t rt_hw_mlx90632_init(const char *name, struct rt_sensor_config *cfg);
 
-#endif /* #define __SENSOR_MELEXIS_MLX90632__H */
+#endif /* #define __MELEXIS_MLX90632_SENSOR_V1_H__ */
 
 
 

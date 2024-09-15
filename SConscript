@@ -11,10 +11,10 @@ src += Glob('lib/mlx90632.c')
 src += Glob('lib/mlx90632_extended_meas.c')
 
 if GetDepend('PKG_MLX90632_USING_SENSOR_V1'):
-    src += ['sensor_melexis_mlx90632.c']
+    src += ['melexis_mlx90632_sensor_v1.c']
 
 if GetDepend(['PKG_USING_MLX90632_SENSOR_V1_EXAMPLE']):
-    src += ['example_mlx90632.c']
+    src += ['example_mlx90632_sensor_v1.c']
 
 # add mlx90632 inc files
 path  = [cwd, cwd + '/lib']
